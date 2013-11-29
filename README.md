@@ -5,9 +5,11 @@ A configuration loader in Go. Load configuration with files, environment variabl
 
 ## Example
 
-Consider the following Go code in a file called `example.go`:
+Consider the following Go code:
 
 ```go
+package main
+
 import (
 	"fmt"
 	"github.com/jingweno/conf"
@@ -15,24 +17,20 @@ import (
 )
 
 func main() {
-	os.Setenv("GO_ENV", "development")
-	c, err := conf.NewLoader().
-		Env().
-		File("./config.json").
-		Defaults(
-		map[string]interface{}{
-			"DATABASE_HOST": "127.0.0.1",
-			"DATABASE_PORT": "1234",
-		}).
-		Load()
+	d := map[string]interface{}{
+		"GO_ENV":        "development",
+		"DATABASE_NAME": "example_development",
+	}
+	c, err := conf.NewLoader().Env().File("./config.json").Defaults(d).Load()
 
 	if err != nil {
-		fmt.Printf("err: %s\n", err)
+		fmt.Fprintf(os.Stderr, "err: %s\n", err)
 		return
 	}
 
 	printConf(c, "GO_ENV")
 	printConf(c, "DATABASE")
+	printConf(c, "DATABASE_NAME")
 	printConf(c, "DATABASE_HOST")
 	printConf(c, "DATABASE_PORT")
 }
@@ -41,18 +39,28 @@ func printConf(c *conf.Conf, k string) {
 	fmt.Printf("%s: %v\n", k, c.Get(k))
 }
 ```
+and a `config.json`:
+
+```json
+{
+  "DATABASE": "postgres",
+  "DATABASE_HOST": "127.0.0.1",
+  "DATABASE_PORT": "1234"
+}
+```
 
 If you run the above code:
 
 ```plain
-$ DATABASE_PORT=5678 go run example.go
+$ GO_ENV=production go run example.go
 ```
 
 The output will be:
 
 ```plain
-GO_ENV: development
+GO_ENV: production
 DATABASE: postgres
-DATABASE_HOST: foo
+DATABASE_NAME: example_development
+DATABASE_HOST: 127.0.0.1
 DATABASE_PORT: 1234
 ```
