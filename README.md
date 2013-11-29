@@ -17,7 +17,7 @@ These are the supported sources:
 * [Loader.Overrides](http://godoc.org/github.com/jingweno/conf#Loader.Overrides) overrides configuration loaded from any sources
 * [Loader.Register](http://godoc.org/github.com/jingweno/conf#Loader.Register) registers a custom [Adapter](http://godoc.org/github.com/jingweno/conf#Adapter) for loading configuration
 
-Consider the following configuration loading priority:
+Here is an example of loading configuration in priority:
 
 ```go
 package main
