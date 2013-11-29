@@ -7,7 +7,7 @@ A configuration loader in Go. Load configuration with files, environment variabl
 
 Configuration management can get complicated very quickly for even trivial applications running in production.
 `conf` addresses this problem by enabling you to load configuration from different sources.
-**The order in which you attach these configuration sources determines their priority.**
+**The order in which you attach these configuration sources determines their priority. The last attached source has the highest priority.**
 These are the supported sources:
 
 * [Loader.Argv](http://godoc.org/github.com/jingweno/conf#Loader.Argv) loads configuration from command line arguments
