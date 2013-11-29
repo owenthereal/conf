@@ -51,19 +51,3 @@ func TestConf_String(t *testing.T) {
 		t.Errorf("the value of baz should be empty, but it's %s", v)
 	}
 }
-
-func TestConf_Default(t *testing.T) {
-	c := Conf{map[string]interface{}{
-		"foo": "bar",
-	}}
-
-	v := c.Default("foo", "baz")
-	if v != "bar" {
-		t.Errorf("the value of foo should be bar, but it's %s", v)
-	}
-
-	v = c.Default("1", "2")
-	if v != "2" {
-		t.Errorf("the value of 1 should be 2, but it's %s", v)
-	}
-}

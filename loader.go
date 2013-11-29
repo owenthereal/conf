@@ -27,15 +27,12 @@ func (l *Loader) Register(a Adapter) *Loader {
 
 func (l *Loader) Load() (*Conf, error) {
 	c := &Conf{make(map[string]interface{})}
+	c.Merge(l.defaultConf.conf)
 	for _, adapter := range l.adapters {
 		err := adapter.Apply(c)
 		if err != nil {
 			return nil, err
 		}
-	}
-
-	for k, v := range l.defaultConf.conf {
-		c.Default(k, v)
 	}
 
 	return c, nil
