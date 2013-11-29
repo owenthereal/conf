@@ -6,15 +6,15 @@ import (
 
 func TestFile_Apply(t *testing.T) {
 	c := &Conf{make(map[string]interface{})}
-	f := file{"./test.json"}
+	f := file{"./examples/config.json"}
 	err := f.Apply(c)
 
 	if err != nil {
 		t.Errorf("error should be nil, but it's %s", err)
 	}
 
-	if c.String("Foo") != "Bar" {
-		t.Errorf("the value of Foo should be Bar, but it's %v", c.String("Foo"))
+	if c.String("DATABASE") != "postgres" {
+		t.Errorf("the value of DATABASE should be postgres, but it's %v", c.String("DATABASE"))
 	}
 
 	f = file{"./not_exist.json"}
