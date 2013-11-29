@@ -80,4 +80,4 @@ These are the supported sources:
 * [Loader.File](http://godoc.org/github.com/jingweno/conf#Loader.File) loads configuration from a JSON file
 * [Loader.Defaults](http://godoc.org/github.com/jingweno/conf#Loader.Defaults) defines default configuration
 * [Loader.Overrides](http://godoc.org/github.com/jingweno/conf#Loader.Overrides) overrides configuration loaded from any sources
-* [Loader.Register](http://godoc.org/github.com/jingweno/conf#Loader.Register) takes a custom [Adapter](http://godoc.org/github.com/jingweno/conf#Adapter) for loading configuration
+* [Loader.Register](http://godoc.org/github.com/jingweno/conf#Loader.Register) registers a custom [Adapter](http://godoc.org/github.com/jingweno/conf#Adapter) for loading configuration
