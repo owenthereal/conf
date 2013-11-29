@@ -16,7 +16,7 @@ import (
 
 func main() {
 	os.Setenv("GO_ENV", "development")
-	conf, err := conf.NewLoader().
+	c, err := conf.NewLoader().
 		Env().
 		File("./config.json").
 		Defaults(
@@ -31,14 +31,14 @@ func main() {
 		return
 	}
 
-	printConf(conf, "GO_ENV")
-	printConf(conf, "DATABASE")
-	printConf(conf, "DATABASE_HOST")
-	printConf(conf, "DATABASE_PORT")
+	printConf(c, "GO_ENV")
+	printConf(c, "DATABASE")
+	printConf(c, "DATABASE_HOST")
+	printConf(c, "DATABASE_PORT")
 }
 
-func printConf(conf *conf.Conf, key string) {
-	fmt.Printf("%s: %v\n", key, conf.Get(key))
+func printConf(c *conf.Conf, k string) {
+	fmt.Printf("%s: %v\n", k, c.Get(k))
 }
 ```
 
