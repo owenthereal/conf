@@ -10,12 +10,12 @@ func TestConf_Bool(t *testing.T) {
 		"baz": true,
 	}}
 	v := c.Bool("foo")
-	if v != false {
+	if v {
 		t.Errorf("the value of foo should be false, but it's %v", v)
 	}
 
 	v = c.Bool("baz")
-	if v != true {
+	if !v {
 		t.Errorf("the value of baz should be true, but it's %v", v)
 	}
 }

@@ -29,5 +29,18 @@ func TestLoader_Load(t *testing.T) {
 	if v != "baz" {
 		t.Errorf("the value of foo should be baz, but it's %v", v)
 	}
+}
 
+func TestLoader_AdapterSet(t *testing.T) {
+	s := adapterSet{make(map[Adapter]bool)}
+	r := s.Add(file{"path"})
+
+	if !r {
+		t.Errorf("should be able to add a new adapter")
+	}
+
+	r = s.Add(file{"path"})
+	if r {
+		t.Errorf("shouldn't be able to add another adapter")
+	}
 }
