@@ -1,22 +1,36 @@
 package conf
 
-type adapterSet struct {
-	set map[Adapter]bool
+import (
+	"os"
+)
+
+type adapterList struct {
+	list []Adapter
 }
 
-func (s *adapterSet) Add(a Adapter) bool {
-	_, found := s.set[a]
-	s.set[a] = true
-	return !found
+func (s *adapterList) Add(a Adapter) bool {
+	for _, adapter := range s.list {
+		if adapter == a {
+			return false
+		}
+	}
+
+	s.list = append(s.list, a)
+	return true
 }
 
 type Loader struct {
-	adapters    *adapterSet
+	adapters    *adapterList
 	defaultConf *Conf
 }
 
 func (l *Loader) Defaults(defs map[string]interface{}) *Loader {
 	l.defaultConf.Merge(defs)
+	return l
+}
+
+func (l *Loader) Argv() *Loader {
+	l.adapters.Add(argv{os.Args})
 	return l
 }
 
@@ -38,7 +52,7 @@ func (l *Loader) Register(a Adapter) *Loader {
 func (l *Loader) Load() (*Conf, error) {
 	c := &Conf{make(map[string]interface{})}
 	c.Merge(l.defaultConf.conf)
-	for a, _ := range l.adapters.set {
+	for _, a := range l.adapters.list {
 		err := a.Apply(c)
 		if err != nil {
 			return nil, err
@@ -50,7 +64,7 @@ func (l *Loader) Load() (*Conf, error) {
 
 func NewLoader() *Loader {
 	return &Loader{
-		adapters:    &adapterSet{make(map[Adapter]bool)},
+		adapters:    &adapterList{make([]Adapter, 0)},
 		defaultConf: &Conf{make(map[string]interface{})},
 	}
 }

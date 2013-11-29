@@ -10,7 +10,7 @@ func TestLoader_Load(t *testing.T) {
 	c, err := l.Env().Defaults(map[string]interface{}{"foo": "bar"}).Load()
 
 	if err != nil {
-		t.Errorf("err should be nil, but it's %s", err)
+		t.Fatalf("err should be nil, but it's %s", err)
 	}
 
 	v := c.String("foo")
@@ -22,7 +22,7 @@ func TestLoader_Load(t *testing.T) {
 	c, err = l.Env().Defaults(map[string]interface{}{"foo": "bar"}).Load()
 
 	if err != nil {
-		t.Errorf("err should be nil, but it's %s", err)
+		t.Fatalf("err should be nil, but it's %s", err)
 	}
 
 	v = c.String("foo")
@@ -31,8 +31,8 @@ func TestLoader_Load(t *testing.T) {
 	}
 }
 
-func TestLoader_AdapterSet(t *testing.T) {
-	s := adapterSet{make(map[Adapter]bool)}
+func TestLoader_AdapterList(t *testing.T) {
+	s := adapterList{make([]Adapter, 0)}
 	r := s.Add(file{"path"})
 
 	if !r {

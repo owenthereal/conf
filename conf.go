@@ -4,6 +4,10 @@ type Conf struct {
 	conf map[string]interface{}
 }
 
+func (c *Conf) Size() int {
+	return len(c.conf)
+}
+
 func (c *Conf) Get(key string) interface{} {
 	return c.conf[key]
 }

@@ -12,7 +12,7 @@ func TestEnv_Apply(t *testing.T) {
 	err := e.Apply(c)
 
 	if err != nil {
-		t.Errorf("error should be nil, but it's %s", err)
+		t.Fatalf("error should be nil, but it's %s", err)
 	}
 
 	if c.String("Foo") != "Bar" {
