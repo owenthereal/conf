@@ -20,12 +20,18 @@ func (s *adapterList) Add(a Adapter) bool {
 }
 
 type Loader struct {
-	adapters    *adapterList
-	defaultConf *Conf
+	adapters     *adapterList
+	defaultConf  *Conf
+	overrideConf *Conf
 }
 
 func (l *Loader) Defaults(defs map[string]interface{}) *Loader {
 	l.defaultConf.Merge(defs)
+	return l
+}
+
+func (l *Loader) Overrides(defs map[string]interface{}) *Loader {
+	l.overrideConf.Merge(defs)
 	return l
 }
 
@@ -58,13 +64,15 @@ func (l *Loader) Load() (*Conf, error) {
 			return nil, err
 		}
 	}
+	c.Merge(l.overrideConf.conf)
 
 	return c, nil
 }
 
 func NewLoader() *Loader {
 	return &Loader{
-		adapters:    &adapterList{make([]Adapter, 0)},
-		defaultConf: &Conf{make(map[string]interface{})},
+		adapters:     &adapterList{make([]Adapter, 0)},
+		defaultConf:  &Conf{make(map[string]interface{})},
+		overrideConf: &Conf{make(map[string]interface{})},
 	}
 }
