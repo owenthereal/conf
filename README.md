@@ -122,3 +122,7 @@ DATABASE_POOL: 10
 ```
 
 More [examples](https://github.com/jingweno/conf/tree/master/examples) are available.
+
+## License
+
+`conf` is released under the MIT license. See [LICENSE.md](https://github.com/jingweno/conf/blob/master/LICENSE.md).
