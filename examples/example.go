@@ -17,6 +17,7 @@ func main() {
 			"DATABASE_PORT": "1234",
 		}).
 		Load()
+
 	if err != nil {
 		fmt.Printf("err: %s\n", err)
 		return
