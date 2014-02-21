@@ -29,12 +29,14 @@ func (c *Conf) Bool(key string) bool {
 func (c *Conf) Int(key string) int {
 	val := c.Get(key)
 	if val != nil {
-		v, ok := val.(int)
-		if ok {
-			return v
+		switch val := val.(type) {
+		default:
+			return 0
+		case float64:
+			return int(val)
+		case int:
+			return val
 		}
-
-		return 0
 	}
 
 	return 0
